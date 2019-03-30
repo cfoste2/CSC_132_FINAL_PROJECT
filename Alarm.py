@@ -26,7 +26,7 @@ class MainGUI(Frame):
             # right-align text in the display; and set its
             # background to white, its height to 2 characters, and
             # its font to 50 point TexGyreAdventor
-            self.display = Label(self, text="", anchor=E, bg="white", height=1, font=("TexGyreAdventor", 45))
+            self.display = Label(self, text="", anchor=E, bg="white", height=1, font=("TexGyreAdventor", 35))
             # put it in the top row, spanning across all four
             # columns; and expand it on all four sides
             self.display.grid(row=0, column=0, columnspan=4,sticky=E+W+N+S)
@@ -158,28 +158,29 @@ class MainGUI(Frame):
 
     #arming system:
     def program(self):
-        self.display["text"] = "Entr 6-dgt, Press ="
+        self.display["text"] = "Enter 6-digits, Press ="
         self.shouldClear = True
 
     def run(self):
         if (len(self.display["text"]) != 6):
-            self.display["text"] = "Error: Entr 6 dgts"
+            self.display["text"] = "Error: Enter 6 dgts"
             self.shouldClear = True
         else:
             self.run2() 
             
     def run2(self):
-        code1 = self.display["text"]
-        self.display["text"] = "Re-Entr, Press **"
+        global code1
+        code1= self.display["text"]
+        self.display["text"] = "Re-Enter, Press **"
         self.shouldClear = True
-        return code1
-
         
     def run3(self):
-        if (self.display["text"] == self.run2()):
+        if (self.display["text"] == code1):
             self.display["text"] = "Code Stored"
         else:
             self.display["text"] = "Error: Enter Code"
+            self.shouldClear = True
+            self.run3()
             
     
     # processes button presses
